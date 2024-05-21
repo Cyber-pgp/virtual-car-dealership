@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Car Dealership</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+
+        <h1>Virtual Car Dealership</h1>
+
+        <nav>
+            <ul>
+
+                <li><a href="{% url, 'home' %}">Home</a></li>
+                <li><a href="{% url 'car_listings' %}">Car Listings</a></li>
+                <li><a href="{% url, 'admin_dashboard' %}">Admin Dashboard</a></li>
+
+            </ul>
+
+        </nav>
+
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock content %}
+    </main>
+
+    <footer>
+
+        <p>&copy; 2024 Virtual Car Dealership</p>
+
+    </footer>
+
+    <script src="{% static 'js/scripts.js' %}"></script>
+
+</body>
+</html>
