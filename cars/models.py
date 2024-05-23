@@ -1,5 +1,5 @@
 from django.db import models
-from multiselectfield import MultiSelectField
+
 
 
 # Create your models here.
@@ -7,16 +7,7 @@ from multiselectfield import MultiSelectField
 from django.db import models
 
 class Car(models.Model):
-    location = (
-        ('alvik','ALVIK'),
-        ('axelsberg','AXELSBERG'),
-        ('akalla','AKALLA'),
-        ('sickla','SICKLA'),
-        ('ropsten','ROPSTEN'),
-        ('vällingby','VÄLLINGBY'),
-        ('solna','SOLNA'),
-        ('barkarby','BARKARBY'),
-    )
+    
     make = models.CharField(max_length=50)
     model = models.CharField(max_length=50)
     year = models.PositiveIntegerField()
