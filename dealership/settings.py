@@ -24,15 +24,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+SECRET_KEY ='25syj6lonp0pz2&!mletg=^ml$3(u)5ar(ou$@sw1x=688l&!+)'
 
+# SECURITY WARNING: don't run with debug turned on in production!
+#DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = True
 ALLOWED_HOSTS = []
 
-
+LOGIN_URL = 'login'
+LOGOUT_URL = 'login'
 # Application definition
 
 INSTALLED_APPS = [
+    'user_authentication',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cars',
     'accounts',
+   
 ]
 
 MIDDLEWARE = [
