@@ -18,25 +18,28 @@
     </header>
 
     <main>
-        <section>
-            <section class="block block--dark block--skewed-left">
 
-                <div class="grid grid--1x2">
-                    <div class="hero__content">
-                        <h1>Find your Dream Car</h1>
-                        <p class="hero__tagline">Among a great selection of used cars</p>
-                        <a href="{% url 'car_listings' %}" class="btn btn--primary btn--block">View cars</a>
-                    </div>
-                    <div>
-                        <img class="hero__image" src="images/banner.png" alt="">
-                    </div>
+        <section class="block block--dark block--skewed-left">
+
+            <div class="grid grid--1x2">
+                <div class="hero__content">
+                    <h1>Find your Dream Car</h1>
+                    <p class="hero__tagline">Among a great selection of used cars</p>
+                    <a href="{% url 'car_listings' %}" class="btn btn--primary btn--block">View cars</a>
                 </div>
+                <div>
+                    <img class="hero__image" src="images/banner.png" alt="">
+                </div>
+            </div>
 
-            </section>
         </section>
 
-        <section>
-            <!-- search bar -->
+
+        <section class="searchbar">
+            <form class="search" action="">
+                <input type="text" placeholder="Search for a car brand or model" name="search">
+                <button type="submit"><i class="btn"></i></button>
+            </form>
         </section>
 
         <section>

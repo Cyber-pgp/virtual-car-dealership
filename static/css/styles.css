@@ -10,6 +10,7 @@ body {
     margin: 0;
     display: flex;
     flex-direction: column;
+    background-color: #fcfcfc;
 }
 
 header {
@@ -153,6 +154,50 @@ h1 {
     .btn {
         font-size: 1.5rem;
     }
+}
+
+.searchbar {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+form.search input[type=text] {
+    padding: 1rem;
+    font-size: 1.5rem;
+    border: 1px solid grey;
+    border-radius: 40px 0px 0px 40px;
+    float: left;
+    min-width: 400px;
+    background: #fff;
+}
+
+form.search button {
+    background: #A2001D;
+    border-radius: 0px 40px 40px 0px;
+    border: 0;
+    color: white;
+    cursor: pointer;
+    float: left;
+    font-size: 1.6rem;
+    font-weight: 600;
+    padding: 1rem 3rem;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    width: 5%;
+}
+
+form.search button:hover {
+    background: #B10020;
+}
+
+form.search::after {
+    content: "";
+    clear: both;
+    display: table;
 }
 
 /* header, footer {
