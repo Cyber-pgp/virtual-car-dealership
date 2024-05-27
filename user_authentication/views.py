@@ -1,26 +1,20 @@
-from django.shortcuts import render,redirect
-from django.contrib import auth,messages
+from django.shortcuts import render, redirect
+from django.contrib import auth, messages
 from django.contrib.auth.models import User
 
-# Create your views here.
-def index(request):
-    return  render(request,'home.html')
-
-def login(request):
+def login_view(request):
     if request.method == 'POST':
-        username = request.POST.get['username']
-        password = request.POST.get['password']
+        username = request.POST['username']
+        password = request.POST['password']
         user = auth.authenticate(username=username, password=password)
 
         if user is not None:
             auth.login(request, user)
             messages.success(request, 'You are now logged in.')
-            #return redirect('dashboard')
-            #return redirect('/')
-            return redirect('cars/car_list.html')
+            return redirect('car_listings')
         else:
             messages.error(request, 'Invalid login credentials')
-            return redirect('login')
+            return redirect('user_authentication:login')
     return render(request, 'user_authentication/login.html')
 
 def register(request):
@@ -35,27 +29,23 @@ def register(request):
         if password == confirm_password:
             if User.objects.filter(username=username).exists():
                 messages.error(request, 'Username already exists!')
-                return redirect('register')
+                return redirect('user_authentication:register')
             else:
                 if User.objects.filter(email=email).exists():
                     messages.error(request, 'Email already exists!')
-                    return redirect('register')
+                    return redirect('user_authentication:register')
                 else:
                     user = User.objects.create_user(first_name=firstname, last_name=lastname, email=email, username=username, password=password)
                     auth.login(request, user)
                     messages.success(request, 'You are now logged in.')
-                    return redirect('dashboard')
-                    user.save()
-                    messages.success(request, 'You are registered successfully.')
-                    return redirect('login')
+                    return redirect('car_listings')  # Adjust this according to your URLs
         else:
-            messages.error(request, 'Password do not match')
-            return redirect('register')
+            messages.error(request, 'Passwords do not match')
+            return redirect('user_authentication:register')
     else:
         return render(request, 'user_authentication/register.html')
 
-def logout(request):
+def logout_view(request):
     auth.logout(request)
-    messages.info(request,'You are logged out !')
+    messages.info(request, 'You are logged out!')
     return redirect('home')
-    

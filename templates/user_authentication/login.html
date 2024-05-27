@@ -23,12 +23,12 @@
                 <div class="form-section">
                     <div class="logo-2">
                         <a href="home.html">
-                            <img src="{% static 'img/.png' %}" alt="logo">
+                            <img src="{% static 'images/logo.svg' %}" alt="logo">
                         </a>
                     </div>
                     <h3>Customer Login Panel</h3>
                   
-                    <form action="{% url 'login' %}" method="POST">
+                    <form action="{% url 'user_authentication:login' %}" method="POST">
                       {% csrf_token %}
                         <div class="form-group form-box">
                             <input type="text" name="username" class="input-text" placeholder="Username" required>
@@ -42,7 +42,7 @@
                             <button type="submit" class="btn-md btn-success float-left">Login</button>
                         </div>
                         <div class="extra-login clearfix">
-                            <span><p>Don't have an account? <a href="{% url 'register' %}" class="thembo"> Register here</a></p></span>
+                            <span><p>Don't have an account? <a href="{% url 'user_authentication:register' %}" class="thembo"> Register here</a></p></span>
                         </div>
                         <div class="clearfix"></div>
                     

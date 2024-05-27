@@ -29,7 +29,7 @@
                     <h3>Create an account</h3>
 
                    
-                    <form action="{% url 'register' %}" method="POST">
+                    <form action="{% url 'user_authentication:register' %}" method="POST">
                       {% csrf_token %}
                         <div class="form-group form-box">
                             <input type="text" name="firstname" class="input-text" placeholder="First Name" required>
@@ -59,7 +59,7 @@
                             <button type="submit" class="btn-md btn-success float-left">Register</button>
                         </div>
                         <div class="extra-login clearfix">
-                            <span><p>Already a member? <a href="{% url 'login' %}" class="thembo"> Login here</a></p></span>
+                            <span><p>Already a member? <a href="{% url 'user_authentication:login' %}" class="thembo"> Login here</a></p></span>
                         </div>
                         <div class="clearfix"></div>
                      
