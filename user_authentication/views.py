@@ -1,21 +1,26 @@
 from django.shortcuts import render, redirect
 from django.contrib import auth, messages
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import logout as auth_logout
 
-def login_view(request):
+def home(request):
+    return render(request, 'user_authentication/home.html')
+
+def login(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = auth.authenticate(username=username, password=password)
-
-        if user is not None:
-            auth.login(request, user)
-            messages.success(request, 'You are now logged in.')
-            return redirect('car_listings')
-        else:
-            messages.error(request, 'Invalid login credentials')
-            return redirect('user_authentication:login')
-    return render(request, 'user_authentication/login.html')
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                auth_login(request, user)
+                return redirect('home')  # Redirect to a success page.
+    else:
+        form = AuthenticationForm()
+    return render(request, 'user_authentication/login.html', {'form': form})
 
 def register(request):
     if request.method == 'POST':
@@ -45,7 +50,7 @@ def register(request):
     else:
         return render(request, 'user_authentication/register.html')
 
-def logout_view(request):
-    auth.logout(request)
+def logout(request):
+    auth_logout(request)
     messages.info(request, 'You are logged out!')
     return redirect('home')

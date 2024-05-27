@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Virtual Car Dealership</title>
@@ -13,7 +14,7 @@
 
         <nav class="nav">
             <a class="logo" href="{% url 'home' %}" title="Home"><img src="{% static 'images/logo.svg' %}" alt="Home"></a>
-            <p class="nav__item"><a href="{% url, 'user_authentication:login' %}">Login</a></p>
+            <p class="nav__item"><a href="{% url 'user_authentication:login' %}">Login</a></p>
         </nav>
     </header>
 
