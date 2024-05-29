@@ -2,45 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Car
 from django.urls import reverse_lazy
-from .forms import CarForm
 from django.db.models import Q
 
-class CarListView(ListView):
-    model = Car
-    template_name = 'cars/car_listings.html'
-    context_object_name = 'cars'
-
-def car_detail(request, id):
-    car = get_object_or_404(Car, id=id)
-    return render(request, 'cars/car_detail.html', {'car': car})
-
-class CarCreateView(CreateView):
-    model = Car
-    form_class = CarForm
-    template_name = 'cars/car_form.html'
-    success_url = reverse_lazy('cars:car_listings')
-
-class CarUpdateView(UpdateView):
-    model = Car
-    form_class = CarForm
-    template_name = 'cars/car_form.html'
-    success_url = reverse_lazy('cars:car_listings')
-
-class CarDeleteView(DeleteView):
-    model = Car
-    template_name = 'cars/car_confirm_delete.html'
-    success_url = reverse_lazy('car_listings')
-
-
-
-
-
-
-
-
-
-
-#  This is all home,list,details,search pages function
 
 def home(request):
     car_list = Car.objects.all()
@@ -48,7 +11,6 @@ def home(request):
         'car_list': car_list,
     }
     return render(request, 'cars/home.html', context)
-
 
 def listings(request):
     car_list=Car.objects.all()
@@ -74,5 +36,3 @@ def search(request):
         'query': query,
     }
     return render(request, 'cars/search.html', context)
-
-

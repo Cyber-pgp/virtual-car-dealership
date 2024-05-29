@@ -14,3 +14,5 @@ class ProfileEditView(UpdateView):
 
     def get_object(self):
         return self.request.user
+
+

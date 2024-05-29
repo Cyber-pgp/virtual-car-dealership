@@ -24,7 +24,7 @@
         <div class="container">
             {% for car in car_list %}  
             <div class="card">
-               <img src="{{ car.image.url }}" alt="image" class="image.img-thumbnail" height="10%" width="10%">
+               <img src="{{ car.image.url }}" alt="" class="image.img-thumbnail" height="10%" width="10%">
                 <div class="card-body">
                     <div class="card-text">
                         <h3>{{ car.make }}-{{ car.model }}</h3>
@@ -43,8 +43,7 @@
                             </tr>
                         </table>
                     </div>
-                    <p><a href="{% url 'cars:car_details' car.id %}" class="btn btn--secondary" role="button">More info</a></p>
-                    <!-- <button class="btn btn--secondary">More info</button> -->
+                    <p><a href="{% url 'cars:car_details' car.id %}" class="btn btn--secondary">More info</a></p>
                 </div>
             </div>
             {% endfor %}

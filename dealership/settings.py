@@ -28,13 +28,9 @@ SECRET_KEY = config('SECRET_KEY')
 #DEBUG = config('DEBUG', default=False, cast=bool)
 DEBUG = True
 ALLOWED_HOSTS = []
-
-LOGIN_URL = 'user_authentication:login'
-LOGOUT_URL = 'user_authentication:login'
 # Application definition
 
 INSTALLED_APPS = [
-    'user_authentication',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
