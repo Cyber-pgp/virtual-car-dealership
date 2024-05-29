@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Car Listings</h1>
-<a href="{% url 'car_add' %}" class="btn btn-primary">Add New Car</a>
+<a href="{% url 'cars:car_add' %}" class="btn btn-primary">Add New Car</a>
 <ul>
-  {% for car in object_list %}
+  {% for car in cars %}
     <li>
-      <a href="{% url 'car_edit' car.pk %}">{{ car.make }} {{ car.model }}</a>
-      <a href="{% url 'car_delete' car.pk %}">Delete</a>
+      <a href="{% url 'cars:car_detail' car.id %}">{{ car.make }} {{ car.model }}</a>
+      <a href="{% url 'cars:car_edit' car.id %}">Edit</a>
+      <a href="{% url 'cars:car_delete' car.id %}">Delete</a>
     </li>
   {% endfor %}
 </ul>
