@@ -3,6 +3,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .models import Car
 from django.urls import reverse_lazy
 from .forms import CarForm
+from django.db.models import Q
 
 class CarListView(ListView):
     model = Car
@@ -28,4 +29,54 @@ class CarUpdateView(UpdateView):
 class CarDeleteView(DeleteView):
     model = Car
     template_name = 'cars/car_confirm_delete.html'
+<<<<<<< HEAD
     success_url = reverse_lazy('cars:car_listings')
+=======
+    success_url = reverse_lazy('car_listings')
+
+
+
+
+
+
+
+
+
+
+#  This is all home,list,details,search pages function
+
+def home(request):
+    car_list = Car.objects.all()
+    context = {
+        'car_list': car_list,
+    }
+    return render(request, 'cars/home.html', context)
+
+
+def listings(request):
+    car_list=Car.objects.all()
+    context = {
+        'car_list':car_list,
+    }
+    return render(request,'cars/car_list.html',context)
+
+def car_details(request,car_id):
+    car=get_object_or_404(Car,pk=car_id)
+    context = {
+        'car':car,
+    }
+    return render(request,'cars/car_details.html',context)
+
+def search(request):
+    query = request.GET.get('q', '')
+    cars = []
+    if query:
+        cars = Car.objects.filter(Q(make__icontains=query) | Q(model__icontains=query))
+    context = {
+        'cars': cars,
+        'query': query,
+    }
+    return render(request, 'cars/search.html', context)
+
+
+>>>>>>> 922a59baaa7c4c234fd756c765bf008808580a9e

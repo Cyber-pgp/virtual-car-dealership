@@ -1,0 +1,64 @@
+{% extends 'cars/base.html' %}
+{% load static %}
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    
+    {% block body %}
+    <section class="searchbar">
+        <form class="search" action="{% url 'cars:search' %}" method="get">
+            {% csrf_token %}
+            <input type="text" class="form-control" name="q" placeholder="Search for a car brand or model" value="">
+            <!-- <button class="btn btn-primary" type="submit">Search</button> -->
+            <button type="submit"><i class="btn btn-primary"></i></button>
+        </form>
+    </section>
+    <div class="container mt-4">
+   
+        <h3>Results: {{ query }}</h3>
+        {% if cars %}
+        
+        <div class="row">
+            {% for car in cars %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                <img src="{{ car.image.url }}" alt="image" class="image.img-thumbnail" height="10%" width="10%">
+                <div class="card-body">
+                    <div class="card-text">
+                    <div class="caption">
+                        <h3>{{ car.make }} {{ car.model }}</h3>
+                        <table>
+                            <tr>
+                                <td>Model Year:</td>
+                                <td>{{ car.year }}</td>
+                            </tr>
+                            <tr>
+                                <td>Mileage:</td>
+                                <td>{{ car.mileage }}</td>
+                            </tr>
+                            <tr class="price">
+                                <td>Price: </td>
+                                <td>{{ car.price }} Kr</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <p><a href="{% url 'cars:car_details' car.id %}" class="btn btn--secondary" role="button">More info</a></p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+            {% else %}
+            <p>No cars found matching your query.</p>
+        {% endif %}
+    </div>
+        {% endblock %}
+</body>
+</html>

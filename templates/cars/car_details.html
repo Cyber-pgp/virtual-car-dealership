@@ -1,0 +1,80 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarDetails html</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+   <style>
+    
+   </style>
+</head>
+<body>
+    <header>
+        <nav class="nav">
+            <a class="logo" href="/" title="Home"><img src="{% static 'images/logo.svg' %}" alt="Home"></a>
+            <p class="nav__item"><a href="/">Login</a></p>
+        </nav>
+    </header>
+    <main>
+        <div class="grid_car_info">
+            <img src="{{ car.image.url }}" alt="image" class="image.img-thumbnail" height="10%" width="10%">
+            <div class="grid-body">
+                <div class="grid-text">
+                    <h3>{{ car.make }} {{ car.model }}</h3>
+                    <table>
+                        <tr class="price">
+                            <td>Current Offer</td>
+                            <td>{{ car.price }} Kr</td>
+                        </tr>
+                    </table>
+                </div>
+                <button class="btn btn--secondary">Contact Dealer</button>
+            </div>
+        </div>
+        <section class="car_key_info">
+            <p class="section_title">Key Information</p>
+            <table class="table--key_info">
+                <tr>
+                    <td>Model Year</td>
+                    <td>{{ car.year }}</td>
+                </tr>
+                <tr>
+                    <td>Mileage</td>
+                    <td>{{ car.mileage }}</td>
+                </tr>
+                <td>Fuel</td>
+                <td>{{ car.fuel }}</td>
+                </tr>
+                <td>Engine Power</td>
+                <td>{{ car.engine }}</td>
+                </tr>
+                </tr>
+                <td>Colour</td>
+                <td>{{ car.color }}</td>
+                </tr>
+            </table>
+        </section>
+
+        <section>
+            <p class="section_title">Description</p>
+            <p class="car_description">{{ car.description }}</p>
+        </section>
+
+            {% if car.available %}
+                <p>Active</p>
+            {% else %}
+                <p>Inactive</p>
+            {% endif %}
+
+    </main>       
+    <footer class="footer">
+        <div class="footer__section">&copy 2024 Car Dealership</div>
+    </footer>
+
+</body>
+
+</html>

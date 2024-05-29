@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Car Dealership</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+
+<body>
+    
+    <header>
+        <nav class="nav">
+            <a class="logo" href="{% url 'home' %}" title="Home"><img src="{% static 'images/logo.svg' %}" alt="Home"></a>
+            <p class="nav__item"><a href="{% url 'user_authentication:login' %}">Login</a></p>
+        </nav>
+    </header>
+
+    <main>
+        <!-- featured cars -->
+        {% block body %}
+        {% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="footer__section">
+            <p>&copy; 2024 Virtual Car Dealership</p>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/scripts.js' %}"></script>
+
+</body>
+
+</html>

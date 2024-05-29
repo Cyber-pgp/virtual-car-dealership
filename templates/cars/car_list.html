@@ -1,3 +1,7 @@
+{% extends 'cars/base.html' %}
+{% load static %}
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,49 +9,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cars</title>
-    {% load static %}
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{% static 'css/style_list.css' %}">
 </head>
 
 <body>
-    <header>
-        <nav class="nav">
-            <a class="logo" href="/"><img src="images/logo.svg" alt=""></a>
-            <p class="nav__item"><a href="#">Login</a></p>
-        </nav>
-    </header>
-
+    
+    {% block body %}
+     
     <section class="page_title">
         <h2>Available cars</h2>
     </section>
-
+    
     <main>
         <div class="container">
+            {% for car in car_list %}  
             <div class="card">
-                <img src="images/car_image.png" alt="">
+               <img src="{{ car.image.url }}" alt="image" class="image.img-thumbnail" height="10%" width="10%">
                 <div class="card-body">
                     <div class="card-text">
-                        <h3>Tesla Model 3</h3>
+                        <h3>{{ car.make }}-{{ car.model }}</h3>
                         <table>
                             <tr>
                                 <td>Model Year</td>
-                                <td>2022</td>
+                                <td>{{ car.year }}</td>
                             </tr>
                             <tr>
-                                <td>Mileage</td>
-                                <td>35890</td>
+                                <td>Mileage:</td>
+                                <td>{{ car.mileage }}</td>
                             </tr>
                             <tr class="price">
-                                <td>Price</td>
-                                <td>360 000 Kr</td>
+                                <td>Price: </td>
+                                <td>{{ car.price }} Kr</td>
                             </tr>
                         </table>
                     </div>
-                    <button class="btn btn--secondary">More info</button>
+                    <p><a href="{% url 'cars:car_details' car.id %}" class="btn btn--secondary" role="button">More info</a></p>
+                    <!-- <button class="btn btn--secondary">More info</button> -->
                 </div>
             </div>
+            {% endfor %}
         </div>
     </main>
+    {% endblock %}
 
     <footer class="footer">
         <div class="footer__section">&copy 2024 Car Dealership</div>
