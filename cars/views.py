@@ -29,9 +29,6 @@ class CarUpdateView(UpdateView):
 class CarDeleteView(DeleteView):
     model = Car
     template_name = 'cars/car_confirm_delete.html'
-<<<<<<< HEAD
-    success_url = reverse_lazy('cars:car_listings')
-=======
     success_url = reverse_lazy('car_listings')
 
 
@@ -79,4 +76,3 @@ def search(request):
     return render(request, 'cars/search.html', context)
 
 
->>>>>>> 922a59baaa7c4c234fd756c765bf008808580a9e
