@@ -13,14 +13,8 @@
     <header>
         <nav class="nav">
             <a class="logo" href="{% url 'home' %}" title="Home"><img src="{% static 'images/logo.svg' %}" alt="Home"></a>
-            {% if user.is_authenticated %}
-                <p class="nav__item"><a href="{% url 'accounts:profile' %}">Profile</a></p>
-                <p class="nav__item"><a href="{% url 'user_authentication:logout' %}">Logout</a></p>
-            {% else %}
-                <p class="nav__item"><a href="{% url 'user_authentication:login' %}">Login</a></p>
-                <p class="nav__item"><a href="{% url 'user_authentication:register' %}">Register</a></p>
-            {% endif %}
-            <p class="nav__item"><a href="{% url 'cars:car_listings' %}">Car Listings</a></p>
+            <p class="nav__item"><a href="{% url 'user_authentication:login' %}">Dealership Login</a></p>
+
         </nav>
     </header>
 
@@ -53,15 +47,11 @@
         <section class="searchbar">
             <form class="search" action="">
                 <input type="text" placeholder="Search for a car brand or model" name="search">
-                <button type="submit" title="Register"><i class="btn"></i>Register</button>
+                <button type="submit" title="search"><i class="btn"></i></button>
             </form>
         </section>
 
-        <section>
-            <!-- featured cars -->
-            {% block content %}
-            {% endblock content %}
-        </section>
+        
     </main>
 
     <footer class="footer">
