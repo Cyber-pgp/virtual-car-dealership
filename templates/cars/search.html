@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block body %}
+<p><a href="{% url 'cars:listings' %}" class="" role="button" >  > Back</a></p>
 <section class="searchbar">
     <form class="search" action="{% url 'cars:search' %}" method="get">
         <input type="text" class="form-control" name="q" placeholder="Search for a car brand or model" value="{{ query }}">

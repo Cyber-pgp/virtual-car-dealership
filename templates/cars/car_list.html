@@ -2,6 +2,13 @@
 {% load static %}
 
 {% block body %}
+<p><a href="{% url 'cars:listings' %}" class="" role="button" >  > Back</a></p>
+<section class="searchbar">
+    <form class="search" action="{% url 'cars:search' %}" method="get">
+        <input type="text" class="form-control" name="q" placeholder="Search for a car brand or model" value="{{ query }}">
+        <button type="submit" aria-label="Search"><i class="btn btn-primary"></i></button>
+    </form>
+</section>
 
 <section class="page_title">
     <h2>Available cars</h2>
@@ -31,7 +38,7 @@
                             <td>{{ car.price }} Kr</td>
                         </tr>
                     </table>
-                    <p><a href="{% url 'cars:car_details' car.id %}" class="btn btn-secondary">More info</a></p>
+                    <a href="{% url 'cars:car_details' car.id %}" >More info</a>
                 </div>
             </div>
         </div>

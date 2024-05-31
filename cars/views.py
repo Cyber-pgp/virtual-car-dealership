@@ -18,5 +18,15 @@ def car_details(request, car_id):
 
 def search(request):
     query = request.GET.get('q')
-    cars = Car.objects.filter(model__icontains=query) if query else Car.objects.all()
+    cars = Car.objects.all()
+ 
+    if query:
+        cars = Car.objects.filter(
+       
+            Q(make__icontains=query) |
+            Q(model__icontains=query) |
+            Q(fuel__icontains=query)
+        )
+    else:
+        cars = []
     return render(request, 'cars/search.html', {'cars': cars, 'query': query})

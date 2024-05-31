@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block body %}
-
+<p><a href="{% url 'cars:listings' %}" class="" role="button" >  > Back</a></p>
     <main>
         <div class="grid_car_info">
             <img src="{{ car.image.url }}" alt="" class="image.img-thumbnail" height="10%" width="10%">
