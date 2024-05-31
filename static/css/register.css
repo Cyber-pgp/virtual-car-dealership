@@ -1,16 +1,18 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: hsl(248, 87%, 44%);
-    margin: 0;
-    padding: 0;
+    min-height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-
+    flex-direction: column;
+    margin: 0;
+    width: 100vw;
+    overflow-x: hidden;
+    background-color: #f0f0f0;
+    font-family: "Open Sans", sans-serif;
+    font-size: 14.5px;
+    line-height: 1.4em;
+    color: #404646;
 }
 
-.container {
+.container-register {
     max-width: 400px;
     margin: 50px auto;
     background: #fff;

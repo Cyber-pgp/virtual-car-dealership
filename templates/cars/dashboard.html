@@ -2,17 +2,10 @@
 {% block body %}
 
 {% load static %}
-<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
-<div class="container">
-    {% if user.is_authenticated %}
-    <h1 style="color: rgb(229, 31, 35);">welcome {{ user.username }} !</h1>
-    <form action="{% url 'cars:home' %}" method="post">
-        {% csrf_token %}
-        <button type="submit" style="width: 10%; padding: 10px; border: none; border-radius: 4px; cursor: pointer;
-                    font-size: 16px; background-color: #007bff; color: white; margin-top: 20px;">LOGOUT</button>
-    </form>
-    {% endif %}
-</div>
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+
+
 <section class="page_title">
     <h2>Dealer Dashboard</h2>
 </section>
