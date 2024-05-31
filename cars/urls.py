@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 
 app_name = 'cars'
@@ -8,4 +10,4 @@ urlpatterns = [
     path('listings/', views.listings, name='listings'),  # Changed from 'list' to 'listings'
     path('cars<int:car_id>/', views.car_details, name='car_details'),  # Removed redundant 'cars' prefix
     path('search/', views.search, name='search'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
