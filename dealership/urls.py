@@ -4,6 +4,6 @@ from cars import views as car_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', car_views.home, name='home'),  # Ensure home page routes correctly
+    path('', car_views.home, name='home'),
     path('', include('cars.urls', namespace='cars')),
 ]

@@ -1,13 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Car
-from django.urls import reverse_lazy
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import user_passes_test
 
 
 def home(request):
@@ -47,11 +46,11 @@ def login(request):
         if user is not None:
             auth.login(request, user)
             #messages.success(request, 'You are now logged in.')
-            return redirect('dashboard')
+            return redirect('cars:dashboard')
         else:
             messages.error(request,'Oops! Invalid login credentials')
-            return redirect('login')
-    return render(request, 'login.html')
+            return redirect('cars:login')
+    return render(request, 'cars/login.html')
  
 def logout(request):
     if request.method == 'POST':
@@ -71,32 +70,32 @@ def register(request):
         if password == confirm_password:
             if User.objects.filter(username=username).exists():
                 messages.error(request, 'Username already exists!')
-                return redirect('register')
+                return redirect('cars:register')
             else:
                 if User.objects.filter(email=email).exists():
                     messages.error(request, 'Email already exists!')
-                    return redirect('register')
+                    return redirect('cars:register')
                 else:
                     user = User.objects.create_user(first_name=firstname, last_name=lastname, email=email, username=username, password=password)
                     auth.login(request, user)
                     user.save()
                     messages.success(request, 'You are registered successfully.')
-                    return redirect('login')
+                    return redirect('cars:login')
         else:
             messages.error(request, 'Password does not match')
-            return redirect('register')
+            return redirect('cars:register')
     else:
-        return render(request, 'register.html')
+        return render(request, 'cars/register.html')
    
 def dashboard(request):
-    return render(request,'dashboard.html')
+    return render(request,'cars/dashboard.html')
  
  
  
 def admindashboard(request):
     num_users = User.objects.exclude(is_superuser=True).count()
     context = {'num_users': num_users}
-    return render(request, 'admindashboard.html', context)
+    return render(request, 'cars/admindashboard.html', context)
  
  
  
@@ -108,19 +107,19 @@ def adminlogin(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
-            if user is not None:
+            if user is not None and user.is_superuser:
                 login(request)
-                return redirect('admindashboard')
+                return redirect('cars:admindashboard')
             else:
                 messages.error(request, 'you are not ad admin')
-                return redirect('home')
+                return redirect('cars:home')
     else:
         form = AuthenticationForm()
-    return render(request, 'adminlogin.html', {'form': form})
+    return render(request, 'cars/adminlogin.html', {'form': form})
  
 def adminlogout(request):
     if request.method == 'POST':
         logout(request)
-        return redirect('home')
-    return redirect('home')
+        return redirect('cars:home')
+    return redirect('cars:home')
  

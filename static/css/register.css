@@ -1,0 +1,118 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: hsl(248, 87%, 44%);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+}
+
+.container {
+    max-width: 400px;
+    margin: 50px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="submit"] {
+
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background-color: orange;
+    color: white;
+    padding: 14px 20px;
+    margin: 12px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+    font-weight: bold;
+}
+
+input[type="submit"]:hover {
+    background-color: orangered;
+}
+
+.input-text {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.btn-md {
+    padding: 14px 20px;
+    margin: 12px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+    font-weight: bold;
+}
+
+
+.btn-md.btn-success {
+    background-color: #28a745;
+    color: white;
+}
+
+
+.btn-md.btn-success:hover {
+    background-color: #218838;
+}
+
+
+.btn-md.btn-success:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(40, 169, 67, 0.5);
+}
+
+.messages {
+    display: block;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.messages li {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-size: 18px;
+}
+.messages li.success {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}

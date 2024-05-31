@@ -1,32 +1,37 @@
 {% extends 'cars/base.html' %}
+
+{% block body %}
 {% load static %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
 
 {% if messages %}
 <ul class="messages">
     {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
+    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
 </ul>
 {% endif %}
 <div class="container">
     <h3> Dealer Login Panel </h3>
-    <form action="{% url 'login' %}" method="POST">
+    <form action="{% url 'cars:login' %}" method="POST">
         {% csrf_token %}
         <div class="form-group form-box">
             <input type="text" name="username" class="input-text" placeholder="Username" required>
             <i class="flaticon-mail"></i>
         </div>
-        
+
         <div class="form-group form-box">
             <input type="password" name="password" class="input-text" placeholder="Password" required>
             <i class="flaticon-lock"></i>
         </div>
-        
+
         <div class="form-group mb-0 clearfix">
             <button type="submit" class="btn-md btn-success float-left">Login</button>
         </div>
         <div class="extra-login clearfix">
-            <span><p>Don't have an account? <a href="{% url 'register' %}" class="thembo"> Register here</a></p></span>
+            <span>
+                <p>Don't have an account? <a href="{% url 'cars:register' %}" class="thembo"> Register here</a></p>
+            </span>
         </div>
         <div class="clearfix"></div>
     </form>

@@ -12,7 +12,8 @@
     <header>
         <nav class="nav">
             <a class="logo" href="/" title="Home"><img src="{% static 'images/logo.svg' %}" alt="Home"></a>
-            <p class="nav__item"><a href="{% url 'login' %}">Login</a></p>
+            <p class="nav__item"><a href="{% url 'cars:login' %}">Login</a></p>
+            <p class="nav__item"><a href="{% url 'cars:register' %}">Register</a></p>
         </nav>
     </header>
  
