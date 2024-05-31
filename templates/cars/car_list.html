@@ -1,60 +1,42 @@
 {% extends 'cars/base.html' %}
 {% load static %}
 
+{% block body %}
 
-<!DOCTYPE html>
-<html lang="en">
+<section class="page_title">
+    <h2>Available cars</h2>
+</section>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cars</title>
-    <link rel="stylesheet" href="{% static 'css/style_list.css' %}">
-</head>
-
-<body>
+<main>
     
-    {% block body %}
-     
-    <section class="page_title">
-        <h2>Available cars</h2>
-    </section>
-    
-    <main>
-        <div class="container">
-            {% for car in car_list %}  
-            <div class="card">
-               <img src="{{ car.image.url }}" alt="" class="image.img-thumbnail" height="10%" width="10%">
-                <div class="card-body">
-                    <div class="card-text">
-                        <h3>{{ car.make }}-{{ car.model }}</h3>
-                        <table>
-                            <tr>
-                                <td>Model Year</td>
-                                <td>{{ car.year }}</td>
-                            </tr>
-                            <tr>
-                                <td>Mileage:</td>
-                                <td>{{ car.mileage }}</td>
-                            </tr>
-                            <tr class="price">
-                                <td>Price: </td>
-                                <td>{{ car.price }} Kr</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <p><a href="{% url 'cars:car_details' car.id %}" class="btn btn--secondary">More info</a></p>
+    <div class="container">
+        {% for car in car_list %}
+        <div class="card">
+            <img src="{{ cars.image.url }}" alt="" class="img" height="150px" width="150px">
+
+            <div class="card-body">
+                <div class="card-text">
+                    <h3>{{ car.make }}-{{ car.model }}</h3>
+                    <table>
+                        <tr>
+                            <td>Model Year</td>
+                            <td>{{ car.year }}</td>
+                        </tr>
+                        <tr>
+                            <td>Mileage:</td>
+                            <td>{{ car.mileage }}</td>
+                        </tr>
+                        <tr class="price">
+                            <td>Price: </td>
+                            <td>{{ car.price }} Kr</td>
+                        </tr>
+                    </table>
+                    <p><a href="{% url 'cars:car_details' car.id %}" class="btn btn-secondary">More info</a></p>
                 </div>
             </div>
-            {% endfor %}
         </div>
-    </main>
-    {% endblock %}
+        {% endfor %}
+    </div>
+</main>
 
-    <footer class="footer">
-        <div class="footer__section">&copy 2024 Car Dealership</div>
-    </footer>
-
-</body>
-
-</html>
+{% endblock %}
