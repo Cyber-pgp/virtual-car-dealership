@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="\cardealers\static\css\style1.css">
+</head>
+ 
+<body>
+    <header>
+        <nav class="nav">
+            <a class="logo" href="/"><img src="images/logo.svg" alt=""></a>
+        </nav>
+    </header>
+    <div class="container">
+        {% if user.is_authenticated %}
+        <h1 style="color: rgb(229, 31, 35);">welcome {{ user.username }} !</h1>
+                <form action ="{% url 'home' %}" method = "post">
+                    {% csrf_token %}
+                    <button type="submit" style="width: 10%; padding: 10px; border: none; border-radius: 4px; cursor: pointer;
+                    font-size: 16px; background-color: #007bff; color: white; margin-top: 20px;">LOGOUT</button>
+                </form>
+        {% endif %}
+    </div>
+    <section class="page_title">
+        <h2>Dealer Dashboard</h2>
+    </section>
+   
+    <section class="add_button">
+        <div><button class="btn--edit"  onclick="openEditCar()">Add car +</button></div>
+    </section>
+   
+ 
+ 
+    <section class=" cars_table">
+            <div class="car_row">
+                <div class="car__item"><img class="grid_row_img" src="images/car_image.png" alt=""></div>
+                <div class="car__item">Tesla Model 3</div>
+                <div class="car__item btn--edit" onclick="openEditCar()">Edit</div>
+            </div>
+            <div class="car_row">
+                <div class="car__item"><img class="grid_row_img" src="images/car_image.png" alt=""></div>
+                <div class="car__item">Tesla Model 3</div>
+                <div class="car__item btn--edit" onclick="openEditCar()">Edit</div>
+            </div>
+    </section>
+ 
+    <div class="form-popup" id="carEditForm">
+        <form action="" class="form-container">
+            <h3>Login</h3>
+ 
+            <label for="car_title">Car Title</label>
+            <input type="text" placeholder="Enter car make and model" name="car_title" required>
+ 
+            <label for="car_price">Price</label>
+            <input type="text" placeholder="Enter car price in SEK" name="car_price" required>
+ 
+            <label for="car_year">Model Year</label>
+            <input type="text" placeholder="Enter the production year" name="car_year" required>
+ 
+            <label for="car_mileage">Mileage</label>
+            <input type="text" placeholder="Enter the car's mileage in kilometers" name="car_mileage" required>
+ 
+            <label for="car_fuel">Fuel</label>
+            <input type="text" placeholder="Enter the car's fuel type" name="car_fuel" required>
+ 
+            <label for="car_engine_power">Engine Power</label>
+            <input type="text" placeholder="Enter the car's engine power (HP)" name="car_fuel" required>
+ 
+            <label for="car_colour">Colour</label>
+            <input type="text" placeholder="Enter the car's colour" name="car_colour" required>
+ 
+            <label for="car_image">Image</label>
+            <input type="file" id="car_image" name="img" accept="image/*" required>
+ 
+            <br><br>
+ 
+            <label for="car_desription">Description</label>
+            <textarea name="Text1" cols="23" rows="5" placeholder="Enter the car's detailed description" required></textarea>
+ 
+            <button type="submit" class="btn--secondary">Save</button>
+            <button type="button" class="btn--outline" onclick="closeForm()">Delete</button>
+        </form>
+    </div>
+ 
+    <script>
+        function openEditCar() {
+            document.getElementById("carEditForm").style.display = "block";
+        }
+   
+        function closeForm() {
+            document.getElementById("carEditForm").style.display = "none";
+        }
+    </script>
+ 
+</body>
+</html>

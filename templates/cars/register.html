@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background-color: hsl(248, 87%, 44%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content:center;
+            align-items:center;
+            height: 100vh;
+           
+        }
+ 
+        .container{
+            max-width: 400px;
+            margin:50px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+           
+        }
+        h1{
+            text-align: center;
+        }
+ 
+        h2{
+            text-align: center;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="submit"]{
+ 
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: orange;
+            color: white;
+            padding: 14px 20px;
+            margin: 12px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+        input[type="submit"]:hover{
+            background-color: orangered;
+        }
+        .input-text {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+       
+        .btn-md {
+            padding: 14px 20px;
+            margin: 12px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+       
+       
+        .btn-md.btn-success {
+            background-color: #28a745;
+            color: white;
+        }
+       
+       
+        .btn-md.btn-success:hover {
+            background-color: #218838;
+        }
+       
+       
+        .btn-md.btn-success:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(40, 169, 67, 0.5);
+        }
+        .messages {
+    display:block;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+ 
+.messages li {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-size: 18px;
+ 
+ 
+.messages li.success {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+    </style>
+</head>
+<body>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+ 
+<div class="container">      
+                <h3 style="color: tomato;">Create your dealership account</h3>
+ 
+                   
+                    <form action="{% url 'register' %}" method="POST">
+                      {% csrf_token %}
+                        <div>
+                            <label for="firstname">First name:</label>
+                            <input type="text" name="firstname" class="input-text" placeholder="First Name" required>
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <div class="form-group form-box">
+                            <label for="lastname">Last name:</label>
+                            <input type="text" name="lastname" class="input-text" placeholder="Last Name" required>
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <div class="form-group form-box">
+                            <label for="username">User name:</label>
+                            <input type="text" name="username" class="input-text" placeholder="Username" required>
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <div class="form-group form-box">
+                            <label for="email">Email:</label>
+                            <input type="email" name="email" class="input-text" placeholder="Email Address" required>
+                            <i class="flaticon-mail"></i>
+                        </div>
+                        <div class="form-group form-box">
+                            <label for="password">Password:</label>
+                            <input type="password" name="password" class="input-text" placeholder="Password" required>
+                            <i class="flaticon-lock"></i>
+                        </div>
+                        <div class="form-group form-box">
+                            <label for="confirm_password">Confirm password:</label>
+                            <input type="password" name="confirm_password" class="input-text" placeholder="Confirm Password" required>
+                            <i class="flaticon-lock"></i>
+                        </div>
+                        <div class="form-group mb-0 clearfix">
+                            <button type="submit" class="btn-md btn-success  float-left">Register</button>
+                        </div>
+                        <div class="extra-login clearfix">
+                            <span><p>Already a member? <a href="{% url 'login' %}" class="thembo"> Login here</a></p></span>
+                        </div>
+                        <div class="clearfix"></div>
+                     
+                    </form>
+</div>
+       
+</body>
+</html>
