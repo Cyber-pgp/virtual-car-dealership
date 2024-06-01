@@ -138,10 +138,10 @@ def save_car(request):
         img = request.FILES['image']
         car_description = request.POST['description']
         if img:
-             filename = default_storage.save(img.name, img)
+             filename = default_storage.save('images/'+ img.name, img)
              img_path = default_storage.path(filename)
         else:
-            img_path='default/path/to/image.jpg'
+            img_path='path/to/default/image.jpg'
         car = Car(make= car_make,model=car_model,price=car_price,year=car_year,mileage=car_mileage,engine=car_engine, fuel=car_fuel,color=car_colour,description=car_description, image=img_path)
         car.save()
         return redirect('cars:dashboard')
