@@ -14,6 +14,10 @@
     <div><button class="btn--edit" onclick="openEditCar()">Add car +</button></div>
 </section>
 
+<section class="Delete_button">
+    <div><button class="btn--edit" onclick="openEditCar()">Delete car</button></div>
+</section>
+
 
 
 <section class=" cars_table">
@@ -30,37 +34,41 @@
 </section>
 
 <div class="form-popup" id="carEditForm">
-    <form action="" class="form-container">
+    <form action="{% url 'cars:save_car' %}" method="POST" enctype="multipart/form-data" class="form-container">
+        {% csrf_token %}
         <h3>Login</h3>
 
-        <label for="car_title">Car Title</label>
-        <input type="text" placeholder="Enter car make and model" name="car_title" required>
+        <label for="make">Car Make</label>
+        <input type="text" id='make' placeholder="Enter car make" name="make" required>
 
-        <label for="car_price">Price</label>
-        <input type="text" placeholder="Enter car price in SEK" name="car_price" required>
+        <label for="model">Car Model</label>
+        <input type="text" id='model 'placeholder="Enter car model" name="model" required>
 
-        <label for="car_year">Model Year</label>
-        <input type="text" placeholder="Enter the production year" name="car_year" required>
+        <label for="price">Price</label>
+        <input type="text" id="price" placeholder="Enter car price in SEK" name="price" required>
 
-        <label for="car_mileage">Mileage</label>
-        <input type="text" placeholder="Enter the car's mileage in kilometers" name="car_mileage" required>
+        <label for="year">Model Year</label>
+        <input type="text" id="year" placeholder="Enter the production year" name="year" required>
 
-        <label for="car_fuel">Fuel</label>
-        <input type="text" placeholder="Enter the car's fuel type" name="car_fuel" required>
+        <label for="mileage">Mileage</label>
+        <input type="text" id="mileage" placeholder="Enter the car's mileage in kilometers" name="mileage" required>
 
-        <label for="car_engine_power">Engine Power</label>
-        <input type="text" placeholder="Enter the car's engine power (HP)" name="car_fuel" required>
+        <label for="fuel">Fuel</label>
+        <input type="text" id="fuel" placeholder="Enter the car's fuel type" name="fuel" required>
 
-        <label for="car_colour">Colour</label>
-        <input type="text" placeholder="Enter the car's colour" name="car_colour" required>
+        <label for="engine">Engine Power</label>
+        <input type="text" id="engine" placeholder="Enter the car's engine power (HP)" name="engine" required>
 
-        <label for="car_image">Image</label>
-        <input type="file" id="car_image" name="img" accept="image/*" required>
+        <label for="color">Colour</label>
+        <input type="text" id="color" placeholder="Enter the car's colour" name="color" required>
+
+        <label for="image">Image</label>
+        <input type="file" id="image" name="image" accept="image/*" required>
 
         <br><br>
 
-        <label for="car_desription">Description</label>
-        <textarea name="Text1" cols="23" rows="5" placeholder="Enter the car's detailed description"
+        <label for="desription">Description</label>
+        <textarea name="description" cols="23" rows="5" id="description" placeholder="Enter the car's detailed description"
             required></textarea>
 
         <button type="submit" class="btn--secondary">Save</button>

@@ -4,9 +4,11 @@ from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
+from django.http import HttpResponseBadRequest
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.decorators import user_passes_test
+from django.core.files.storage import default_storage
+#from django.contrib.auth.decorators import user_passes_test
 
 
 def home(request):
@@ -123,3 +125,26 @@ def adminlogout(request):
         return redirect('cars:home')
     return redirect('cars:home')
  
+def save_car(request):
+    if request.method == 'POST':
+        car_make = request.POST['make']
+        car_model = request.POST['model']
+        car_price = request.POST['price']
+        car_year = request.POST['year']
+        car_mileage = request.POST['mileage']
+        car_engine = request.POST['engine']
+        car_fuel = request.POST['fuel']
+        car_colour  = request.POST['color']
+        img = request.FILES['image']
+        car_description = request.POST['description']
+        if img:
+             filename = default_storage.save(img.name, img)
+             img_path = default_storage.path(filename)
+        else:
+            img_path='default/path/to/image.jpg'
+        car = Car(make= car_make,model=car_model,price=car_price,year=car_year,mileage=car_mileage,engine=car_engine, fuel=car_fuel,color=car_colour,description=car_description, image=img_path)
+        car.save()
+        return redirect('cars:dashboard')
+    else:
+        return HttpResponseBadRequest('Invalid Request')
+        

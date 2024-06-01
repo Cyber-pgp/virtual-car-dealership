@@ -17,6 +17,7 @@ urlpatterns = [
     path('admindashboard/', views.admindashboard, name='admindashboard'),
     path('admin/login/', views.adminlogin, name='adminlogin'),
     path('adminlogout/', views.adminlogout, name='adminlogout'),
+    path('save_car/',views.save_car, name="save_car"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
