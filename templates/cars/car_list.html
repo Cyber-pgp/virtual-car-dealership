@@ -2,31 +2,24 @@
 {% load static %}
 
 {% block body %}
-<p><a href="{% url 'cars:listings' %}" class="" role="button" >  > Back</a></p>
-<section class="searchbar">
-    <form class="search" action="{% url 'cars:search' %}" method="get">
-        <input type="text" class="form-control" name="q" placeholder="Search for a car brand or model" value="{{ query }}">
-        <button type="submit" aria-label="Search"><i class="btn btn-primary"></i></button>
-    </form>
-</section>
-
 <section class="page_title">
     <h2>Available cars</h2>
 </section>
-
 <main>
-    
     <div class="container">
         {% for car in car_list %}
         <div class="card">
-            <img src="{{ car.image.url }}" alt="" class="img" height="150px" width="150px">
-
+            {% if car.image %}
+            <img src="{{ car.image.url }}" alt="" class="img-thumbnail" height="150px" width="150px">
+            {% else %}
+            <img src="{% static 'images/default_car.jpg' %}" alt="" class="img-thumbnail" height="150px" width="150px">
+            {% endif %}
             <div class="card-body">
                 <div class="card-text">
-                    <h3>{{ car.make }}-{{ car.model }}</h3>
+                    <h3>{{ car.make }} - {{ car.model }}</h3>
                     <table>
                         <tr>
-                            <td>Model Year</td>
+                            <td>Model Year:</td>
                             <td>{{ car.year }}</td>
                         </tr>
                         <tr>
@@ -38,12 +31,11 @@
                             <td>{{ car.price }} Kr</td>
                         </tr>
                     </table>
-                    <a href="{% url 'cars:car_details' car.id %}" >More info</a>
+                    <a href="{% url 'cars:car_details' car.id %}" class="btn btn-secondary">More info</a>
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
 </main>
-
 {% endblock %}

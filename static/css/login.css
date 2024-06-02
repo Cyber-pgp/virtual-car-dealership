@@ -1,33 +1,30 @@
-[11:30 AM] Sheela Chidambaram (Guest)
 body {
     font-family: Arial, sans-serif;
     background-color: hsl(248, 87%, 44%);
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content:center;
-    align-items:center;
+    justify-content: center;
+    align-items: center;
     height: 100vh;
 }
 .container {
     display: flex;
-    flex-direction: column; /* Stack children vertically */
-    align-items: center; /* Center children horizontally */
-    justify-content: flex-start; /* Align items to the start of the container */
-    gap: 20px; /* Adjust space between children */
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
     width: 100%;
-    max-width: 400px; /* Or whatever maximum width you desire */
-    margin: 50px auto; /* Centering the container itself */
+    max-width: 400px;
+    margin: 50px auto;
     background: #fff;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
- 
 .container h3 {
-   
-    text-align:center;
-    color:blue
+    text-align: center;
+    color: blue;
     margin-bottom: 20px;
 }
 .login-box {
@@ -39,7 +36,6 @@ body {
     width: 300px;
     text-align: center;
 }
-/* Form styles */
 form {
     background: #fff;
     padding: 20px;
@@ -48,7 +44,6 @@ form {
     margin-bottom: 20px;
     width: 300px;
 }
- 
 form button {
     width: 100%;
     padding: 10px;
@@ -57,36 +52,21 @@ form button {
     cursor: pointer;
     font-size: 16px;
 }
- 
-/* Button styles */
 form button[type="submit"] {
     background-color: #007bff;
     color: white;
 }
- 
-form button[type="submit"].btn-success {
-    background-color: #28a745;
-}
- 
 form button[type="submit"]:hover {
     background-color: #0056b3;
 }
- 
-form button[type="submit"].btn-success:hover {
-    background-color: #218838;
-}
- 
-/* Input and label styles */
 form p {
     margin-bottom: 15px;
 }
- 
 form label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
 }
- 
 form input {
     width: calc(100% - 20px);
     padding: 10px;
@@ -95,31 +75,26 @@ form input {
     border-radius: 4px;
     box-sizing: border-box;
 }
- 
 form input:focus {
     border-color: #007bff;
     outline: none;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
- 
 .messages {
-    display:block;
+    display: block;
     list-style-type: none;
     padding: 0;
     margin: 0;
 }
- 
 .messages li {
-    background-color: #f8d7da; /* Light red for error messages */
-    color: #721c24; /* Darker text for contrast */
+    background-color: #f8d7da;
+    color: #721c24;
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
-    font-size: 18px; /* Increased font size */
+    font-size: 18px;
 }
- 
-/* Style success messages differently */
 .messages li.success {
-    background-color: #d1ecf1; /* Light green for success messages */
-    color: #0c5460; /* Darker text for contrast */
+    background-color: #d1ecf1;
+    color: #0c5460;
 }

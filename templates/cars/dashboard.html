@@ -1,80 +1,93 @@
-{% extends "cars/base.html" %}
-{% block body %}
-
 {% load static %}
-<link rel="stylesheet" href="{% static 'css/styles.css' %}">
-
-
-
-<section class="page_title">
-    <h2>Dealer Dashboard</h2>
-</section>
-
-<section class="add_button">
-    <div><button class="btn--edit" onclick="openEditCar()">Add car +</button></div>
-</section>
-
-
-
-<section class=" cars_table">
-    <div class="car_row">
-        <div class="car__item"><img class="grid_row_img" src="images/car_image.png" alt=""></div>
-        <div class="car__item">Tesla Model 3</div>
-        <div class="car__item btn--edit" onclick="openEditCar()">Edit</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .card {
+            display: flex;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            width: 4000px;
+            margin: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .img-container {
+            width: 50%;
+            overflow: hidden;
+        }
+        .img-container img {
+            width: 100%;
+            height: auto;
+        }
+        .card-body {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+        }
+        .card-text {
+            margin-bottom: 20px;
+        }
+        .card-text h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.5em;
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #007bff;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+        .btn-secondary {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    {% block body %}
+    <div class="container">
+        {% for car in car_list %}
+        <div class="card">
+            <div class="img-container">
+                <img src="{{ car.image.url }}" alt="" class="img">
+            </div>
+            <div class="card-body">
+                <div class="card-text">
+                    <h3>{{ car.make }} - {{ car.model }}</h3>
+                </div>
+                <div class="btn-group">
+                    <a href="{% url 'cars:car_details' car.id %}" class="btn btn-secondary">More info</a>
+                    <a href="{% url 'cars:car_edit' car.id %}" class="btn btn-outline">Edit</a>
+                    <a href="{% url 'cars:car_delete' car.id %}" class="btn btn-outline">Delete</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
     </div>
-    <div class="car_row">
-        <div class="car__item"><img class="grid_row_img" src="images/car_image.png" alt=""></div>
-        <div class="car__item">Tesla Model 3</div>
-        <div class="car__item btn--edit" onclick="openEditCar()">Edit</div>
-    </div>
-</section>
-
-<div class="form-popup" id="carEditForm">
-    <form action="" class="form-container">
-        <h3>Login</h3>
-
-        <label for="car_title">Car Title</label>
-        <input type="text" placeholder="Enter car make and model" name="car_title" required>
-
-        <label for="car_price">Price</label>
-        <input type="text" placeholder="Enter car price in SEK" name="car_price" required>
-
-        <label for="car_year">Model Year</label>
-        <input type="text" placeholder="Enter the production year" name="car_year" required>
-
-        <label for="car_mileage">Mileage</label>
-        <input type="text" placeholder="Enter the car's mileage in kilometers" name="car_mileage" required>
-
-        <label for="car_fuel">Fuel</label>
-        <input type="text" placeholder="Enter the car's fuel type" name="car_fuel" required>
-
-        <label for="car_engine_power">Engine Power</label>
-        <input type="text" placeholder="Enter the car's engine power (HP)" name="car_fuel" required>
-
-        <label for="car_colour">Colour</label>
-        <input type="text" placeholder="Enter the car's colour" name="car_colour" required>
-
-        <label for="car_image">Image</label>
-        <input type="file" id="car_image" name="img" accept="image/*" required>
-
-        <br><br>
-
-        <label for="car_desription">Description</label>
-        <textarea name="Text1" cols="23" rows="5" placeholder="Enter the car's detailed description"
-            required></textarea>
-
-        <button type="submit" class="btn--secondary">Save</button>
-        <button type="button" class="btn--outline" onclick="closeForm()">Delete</button>
-    </form>
-</div>
-
-<script>
-    function openEditCar() {
-        document.getElementById("carEditForm").style.display = "block";
-    }
-
-    function closeForm() {
-        document.getElementById("carEditForm").style.display = "none";
-    }
-</script>
-{% endblock %}
+    {% endblock %}
+</body>
+</html>

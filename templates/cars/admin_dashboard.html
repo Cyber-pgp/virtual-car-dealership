@@ -1,18 +1,17 @@
-{% extends "cars/base.html" %}
-{% block body %}
+{% extends 'cars/base.html' %}
 {% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
+{% block body %}
 <h1>Admin Dashboard</h1>
 <div class="container">
     {% if user.is_superuser %}
-    <h1 style="color: rgb(229, 31, 35);">Welcome {{ user.username }} !</h1>
-    <form action="{% url 'cars:home' %}" method="post">
+    <h1 style="color: rgb(229, 31, 35);">Welcome {{ user.username }}!</h1>
+    <form action="{% url 'cars:admin_logout' %}" method="post">
         {% csrf_token %}
         <button type="submit" style="width: 10%; padding: 10px; border: none; border-radius: 4px; cursor: pointer;
         font-size: 16px; background-color: #007bff; color: white; margin-top: 20px;">LOGOUT</button>
     </form>
-    {% else %}
-    <a href="{% url 'cars:home' %}" class="btn btn-lg btn-success">Home</a>
     {% endif %}
 </div>
 <p>Total Registered Dealers: {{ num_users }}</p>
@@ -24,7 +23,6 @@
             <th>Username</th>
             <th>Email</th>
             <th>Is Active</th>
-
         </tr>
     </thead>
     <tbody>
@@ -34,11 +32,10 @@
             <td>{{ user.username }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.is_active }}</td>
-
         </tr>
         {% empty %}
         <tr>
-            <td colspan="6">No users found.</td>
+            <td colspan="4">No users found.</td>
         </tr>
         {% endfor %}
     </tbody>

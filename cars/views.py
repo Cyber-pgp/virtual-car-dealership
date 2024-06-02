@@ -1,13 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Car
-from django.db.models import Q
-from django.shortcuts import render, redirect
-from django.contrib import messages, auth
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.decorators import user_passes_test
-
+from .models import Car
+from .forms import RegisterForm, LoginForm, CarForm
 
 def home(request):
     return render(request, 'cars/home.html')
@@ -16,91 +13,75 @@ def listings(request):
     car_list = Car.objects.all()
     return render(request, 'cars/car_list.html', {'car_list': car_list})
 
-def car_details(request, car_id):
-    car = Car.objects.get(id=car_id)
+def car_details(request, id):  # Ensure 'id' matches the URL pattern
+    car = get_object_or_404(Car, id=id)
     return render(request, 'cars/car_details.html', {'car': car})
 
 def search(request):
     query = request.GET.get('q')
     cars = Car.objects.all()
- 
     if query:
         cars = Car.objects.filter(
-       
             Q(make__icontains=query) |
             Q(model__icontains=query) |
             Q(fuel__icontains=query)
         )
-    else:
-        cars = []
     return render(request, 'cars/search.html', {'cars': cars, 'query': query})
 
-
-def login(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        
-        user = auth.authenticate(username=username, password=password)
- 
-        if user is not None:
-            auth.login(request, user)
-            #messages.success(request, 'You are now logged in.')
-            return redirect('cars:dashboard')
-        else:
-            messages.error(request,'Oops! Invalid login credentials')
-            return redirect('cars:login')
-    return render(request, 'cars/login.html')
- 
-def logout(request):
-    if request.method == 'POST':
-        auth.logout(request)
-        return redirect('home')
-    return redirect('home')
- 
 def register(request):
     if request.method == 'POST':
-        firstname = request.POST['firstname']
-        lastname = request.POST['lastname']
-        username = request.POST['username']
-        email = request.POST['email']
-        password = request.POST['password']
-        confirm_password = request.POST['confirm_password']
- 
-        if password == confirm_password:
-            if User.objects.filter(username=username).exists():
-                messages.error(request, 'Username already exists!')
-                return redirect('cars:register')
-            else:
-                if User.objects.filter(email=email).exists():
-                    messages.error(request, 'Email already exists!')
-                    return redirect('cars:register')
-                else:
-                    user = User.objects.create_user(first_name=firstname, last_name=lastname, email=email, username=username, password=password)
-                    auth.login(request, user)
-                    user.save()
-                    messages.success(request, 'You are registered successfully.')
-                    return redirect('cars:login')
-        else:
-            messages.error(request, 'Password does not match')
-            return redirect('cars:register')
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('cars:user_login')
     else:
-        return render(request, 'cars/register.html')
-   
+        form = RegisterForm()
+    return render(request, 'cars/register.html', {'form': form})
+
+def user_login(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                auth_login(request, user)
+                return redirect('cars:dashboard')
+            else:
+                messages.error(request, 'Invalid username or password')
+    else:
+        form = LoginForm()
+    return render(request, 'cars/login.html', {'form': form})
+
+def user_logout(request):
+    auth_logout(request)
+    return redirect('cars:home')
+
+@login_required
 def dashboard(request):
-    return render(request,'cars/dashboard.html')
- 
- 
- 
-def admindashboard(request):
+    car_list = Car.objects.all()
+    return render(request, 'cars/dashboard.html', {'car_list': car_list})
+
+@login_required
+def add_car(request):
+    if request.method == 'POST':
+        form = CarForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('cars:dashboard')
+    else:
+        form = CarForm()
+    return render(request, 'cars/car_form.html', {'form': form, 'title': 'Add Car'})
+
+@login_required
+def admin_dashboard(request):
     num_users = User.objects.exclude(is_superuser=True).count()
-    context = {'num_users': num_users}
+    users = User.objects.all()
+    context = {'num_users': num_users, 'users': users}
     return render(request, 'cars/admindashboard.html', context)
- 
- 
- 
- 
-def adminlogin(request):
+
+def admin_login(request):
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
@@ -108,18 +89,36 @@ def adminlogin(request):
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
             if user is not None and user.is_superuser:
-                login(request)
-                return redirect('cars:admindashboard')
+                auth_login(request, user)
+                return redirect('cars:admin_dashboard')
             else:
-                messages.error(request, 'you are not ad admin')
-                return redirect('cars:home')
+                messages.error(request, 'Invalid credentials or not an admin')
     else:
         form = AuthenticationForm()
     return render(request, 'cars/adminlogin.html', {'form': form})
- 
-def adminlogout(request):
-    if request.method == 'POST':
-        logout(request)
-        return redirect('cars:home')
+
+def admin_logout(request):
+    auth_logout(request)
     return redirect('cars:home')
- 
+
+@login_required
+def car_edit(request, id):
+    car = get_object_or_404(Car, id=id)
+    if request.method == 'POST':
+        form = CarForm(request.POST, request.FILES, instance=car)
+        if form.is_valid():
+            form.save()
+            return redirect('cars:dashboard')
+    else:
+        form = CarForm(instance=car)
+    return render(request, 'cars/car_edit.html', {'form': form})
+
+
+@login_required
+def car_delete(request, id):
+    car = get_object_or_404(Car, id=id)
+    if request.method == 'POST':
+        car.delete()
+        return redirect('cars:dashboard')
+    return render(request, 'cars/car_delete.html', {'car': car})
+

@@ -1,111 +1,75 @@
 body {
-    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: hsl(248, 87%, 44%);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.container-register {
     display: flex;
     flex-direction: column;
-    margin: 0;
-    width: 100vw;
-    overflow-x: hidden;
-    background-color: #f0f0f0;
-    font-family: "Open Sans", sans-serif;
-    font-size: 14.5px;
-    line-height: 1.4em;
-    color: #404646;
-}
-
-.container-register {
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+    width: 100%;
     max-width: 400px;
     margin: 50px auto;
     background: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
 }
-
-h1 {
+.container-register h3 {
     text-align: center;
+    color: tomato;
+    margin-bottom: 20px;
 }
-
-h2 {
-    text-align: center;
+form {
+    width: 100%;
 }
-
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-input[type="submit"] {
-
+form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+form input {
     width: 100%;
     padding: 10px;
-    margin: 8px 0;
-    display: inline-block;
+    margin-top: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
 }
-
-input[type="submit"] {
-    background-color: orange;
-    color: white;
-    padding: 14px 20px;
-    margin: 12px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-    transition: background-color 0.3s;
-    font-weight: bold;
+form input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
-
-input[type="submit"]:hover {
-    background-color: orangered;
-}
-
-.input-text {
+form .btn-md {
     width: 100%;
     padding: 10px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.btn-md {
-    padding: 14px 20px;
-    margin: 12px 0;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    width: 100%;
-    transition: background-color 0.3s;
+    font-size: 16px;
     font-weight: bold;
 }
-
-
-.btn-md.btn-success {
+form .btn-md.btn-success {
     background-color: #28a745;
     color: white;
 }
-
-
-.btn-md.btn-success:hover {
+form .btn-md.btn-success:hover {
     background-color: #218838;
 }
-
-
-.btn-md.btn-success:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(40, 169, 67, 0.5);
-}
-
 .messages {
     display: block;
     list-style-type: none;
     padding: 0;
     margin: 0;
 }
-
 .messages li {
     background-color: #f8d7da;
     color: #721c24;

@@ -1,11 +1,8 @@
-{% extends "cars/base.html" %}
-{% block body %}
-
-
-<title>Login</title>
+{% extends 'cars/base.html' %}
 {% load static %}
+<link rel="stylesheet" href="{% static 'css/adminlogin.css' %}">
 
-
+{% block body %}
 {% if messages %}
 <ul class="messages">
     {% for message in messages %}
@@ -13,21 +10,14 @@
         {% endfor %}
 </ul>
 {% endif %}
-
 <div class="container">
-
     <div class="login-box">
         <h1>Admin-Login</h1>
-        <form action="{% url 'cars:adminlogin' %}" method="post">
+        <form action="{% url 'cars:admin_login' %}" method="post">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="btn btn-lg btn-success">Admin-Login</button>
         </form>
     </div>
 </div>
-
-
-
-
-
 {% endblock %}

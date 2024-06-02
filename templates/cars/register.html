@@ -1,63 +1,29 @@
+{% extends 'cars/base.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/register.css' %}">
 
-    {% extends "cars/base.html" %}
-    {% block body %}
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/register.css' %}">
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-            {% endfor %}
-    </ul>
-    {% endif %}
-
-    <div class="container">
-        <h3 style="color: tomato;">Create your dealership account</h3>
-
-
-        <form action="{% url 'cars:register' %}" method="POST">
-            {% csrf_token %}
-            <div>
-                <label for="firstname">First name:</label>
-                <input type="text" name="firstname" class="input-text" placeholder="First Name" required>
-                <i class="fa fa-user"></i>
-            </div>
-            <div class="form-group form-box">
-                <label for="lastname">Last name:</label>
-                <input type="text" name="lastname" class="input-text" placeholder="Last Name" required>
-                <i class="fa fa-user"></i>
-            </div>
-            <div class="form-group form-box">
-                <label for="username">User name:</label>
-                <input type="text" name="username" class="input-text" placeholder="Username" required>
-                <i class="fa fa-user"></i>
-            </div>
-            <div class="form-group form-box">
-                <label for="email">Email:</label>
-                <input type="email" name="email" class="input-text" placeholder="Email Address" required>
-                <i class="flaticon-mail"></i>
-            </div>
-            <div class="form-group form-box">
-                <label for="password">Password:</label>
-                <input type="password" name="password" class="input-text" placeholder="Password" required>
-                <i class="flaticon-lock"></i>
-            </div>
-            <div class="form-group form-box">
-                <label for="confirm_password">Confirm password:</label>
-                <input type="password" name="confirm_password" class="input-text" placeholder="Confirm Password"
-                    required>
-                <i class="flaticon-lock"></i>
-            </div>
-            <div class="form-group mb-0 clearfix">
-                <button type="submit" class="btn-md btn-success  float-left">Register</button>
-            </div>
-            <div class="extra-login clearfix">
-                <span>
-                    <p>Already a member? <a href="{% url 'cars:login' %}" class="thembo"> Login here</a></p>
-                </span>
-            </div>
-            <div class="clearfix"></div>
-
-        </form>
-    </div>
-    {% endblock %}
+{% block body %}
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+</ul>
+{% endif %}
+<div class="container-register">
+    <h3 style="color: tomato;">Create your dealership account</h3>
+    <form action="{% url 'cars:register' %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-group mb-0 clearfix">
+            <button type="submit" class="btn-md btn-success float-left">Register</button>
+        </div>
+        <div class="extra-login clearfix">
+            <span>
+                <p>Already a member? <a href="{% url 'cars:login' %}" class="thembo"> Login here</a></p>
+            </span>
+        </div>
+        <div class="clearfix"></div>
+    </form>
+</div>
+{% endblock %}
