@@ -202,13 +202,14 @@ def admindashboard(request):
     return render(request, 'cars/admindashboard.html', context)
 @login_required
 def dealership_dashboard(request):
-        if is_admin(request.user):
-            context = Car.objects.all()
-        elif is_dealer(request.user):
-            context = Car.objects.filter(added_by=request.user)
-
-        return render(request, 'cars/dashboard.html', context)
-
+    if is_admin(request.user):
+        car_list = Car.objects.all()
+    elif is_dealer(request.user):
+        car_list = Car.objects.filter(added_by=request.user)
+    else:
+        return redirect('cars:home') # Empty QuerySet for users who are neither admin nor dealer
+    context = {'car_list': car_list}
+    return render(request, 'cars/dashboard.html', context)
 def adminlogin(request):
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
