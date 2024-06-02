@@ -38,15 +38,7 @@ def home(request):
     return render(request, 'cars/home.html')
 
 def listings(request):
-    if request.user.is_authenticated:
-        if is_admin(request.user):
-            car_list = Car.objects.all()
-        elif is_dealer(request.user):
-            car_list = Car.objects.filter(added_by=request.user)
-        else:
-            car_list = Car.objects.filter(available=True)
-    else:
-        car_list = Car.objects.filter(available=True)
+    car_list = Car.objects.filter(available=True)
     return render(request, 'cars/car_list.html', {'car_list': car_list})
 
 def car_details(request, car_id):
@@ -58,15 +50,7 @@ def car_details(request, car_id):
 
 def search(request):
     query = request.GET.get('q')
-    if request.user.is_authenticated:
-        if is_admin(request.user):
-            cars = Car.objects.filter(Q(make__icontains=query) | Q(model__icontains=query) | Q(fuel__icontains=query))
-        elif is_dealer(request.user):
-            cars = Car.objects.filter(Q(make__icontains=query) | Q(model__icontains=query) | Q(fuel__icontains=query), added_by=request.user)
-        else:
-            cars = Car.objects.filter(Q(make__icontains=query) | Q(model__icontains=query) | Q(fuel__icontains=query), available=True)
-    else:
-        cars = Car.objects.filter(Q(make__icontains=query) | Q(model__icontains=query) | Q(fuel__icontains=query), available=True)
+    cars = Car.objects.filter(Q(make__icontains=query) | Q(model__icontains=query) | Q(fuel__icontains=query), available=True)
     return render(request, 'cars/search.html', {'cars': cars, 'query': query})
 
 @login_required
