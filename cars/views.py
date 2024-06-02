@@ -200,6 +200,7 @@ def admindashboard(request):
     num_users = User.objects.exclude(is_superuser=True).count()
     context = {'num_users': num_users}
     return render(request, 'cars/admindashboard.html', context)
+
 @login_required
 def dealership_dashboard(request):
     if is_admin(request.user):

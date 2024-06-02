@@ -4,45 +4,39 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
-
-
 <section class="page_title">
     <h2>Dealer Dashboard</h2>
 </section>
 
 <section class="add_button">
-    <div><button class="btn--edit" onclick="openEditCar()">Add car +</button></div>
+    <div><button class="btn--edit" onclick="openAddCar()">Add car +</button></div>
 </section>
 
 <section class="Delete_button">
     <div><button class="btn--edit" onclick="openEditCar()">Delete car</button></div>
 </section>
 
-
-
-<section class=" cars_table">
+<section class="cars_table">
+    {% for car in car_list %}
     <div class="car_row">
-        <div class="car__item"><img class="grid_row_img" src="images/car_image.png" alt=""></div>
-        <div class="car__item">Tesla Model 3</div>
-        <div class="car__item btn--edit" onclick="openEditCar()">Edit</div>
+        <div class="car__item"><img class="grid_row_img" src="{{ car.image.url }}" alt="Car Image"></div>
+        <div class="car__item">{{ car.make }} {{ car.model }}</div>
+        <div class="car__item">{{ car.price }} SEK</div>
+        <div class="car__item btn--edit" onclick="openEditCar({{ car.id }})">Edit</div>
     </div>
-    <div class="car_row">
-        <div class="car__item"><img class="grid_row_img" src="images/car_image.png" alt=""></div>
-        <div class="car__item">Tesla Model 3</div>
-        <div class="car__item btn--edit" onclick="openEditCar()">Edit</div>
-    </div>
+    {% endfor %}
 </section>
 
 <div class="form-popup" id="carEditForm">
     <form action="{% url 'cars:save_car' %}" method="POST" enctype="multipart/form-data" class="form-container">
         {% csrf_token %}
-        <h3>Login</h3>
+        <h3>Edit Car</h3>
 
         <label for="make">Car Make</label>
-        <input type="text" id='make' placeholder="Enter car make" name="make" required>
+        <input type="text" id="make" placeholder="Enter car make" name="make" required>
 
         <label for="model">Car Model</label>
-        <input type="text" id='model 'placeholder="Enter car model" name="model" required>
+        <input type="text" id="model" placeholder="Enter car model" name="model" required>
 
         <label for="price">Price</label>
         <input type="text" id="price" placeholder="Enter car price in SEK" name="price" required>
@@ -67,9 +61,8 @@
 
         <br><br>
 
-        <label for="desription">Description</label>
-        <textarea name="description" cols="23" rows="5" id="description" placeholder="Enter the car's detailed description"
-            required></textarea>
+        <label for="description">Description</label>
+        <textarea name="description" cols="23" rows="5" id="description" placeholder="Enter the car's detailed description" required></textarea>
 
         <button type="submit" class="btn--secondary">Save</button>
         <button type="button" class="btn--outline" onclick="closeForm()">Delete</button>
@@ -77,7 +70,8 @@
 </div>
 
 <script>
-    function openEditCar() {
+    function openEditCar(carId) {
+        // Load car details into the form if needed
         document.getElementById("carEditForm").style.display = "block";
     }
 
@@ -85,4 +79,5 @@
         document.getElementById("carEditForm").style.display = "none";
     }
 </script>
+
 {% endblock %}
