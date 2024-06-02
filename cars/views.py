@@ -138,7 +138,7 @@ def login(request):
  
         if user is not None:
             auth.login(request, user)
-            return redirect('cars:dashboard')
+            return redirect('cars:dealership_dashboard')
         else:
             messages.error(request, 'Oops! Invalid login credentials')
             return redirect('cars:login')
@@ -200,6 +200,14 @@ def admindashboard(request):
     num_users = User.objects.exclude(is_superuser=True).count()
     context = {'num_users': num_users}
     return render(request, 'cars/admindashboard.html', context)
+@login_required
+def dealership_dashboard(request):
+        if is_admin(request.user):
+            context = Car.objects.all()
+        elif is_dealer(request.user):
+            context = Car.objects.filter(added_by=request.user)
+
+        return render(request, 'cars/dashboard.html', context)
 
 def adminlogin(request):
     if request.method == 'POST':

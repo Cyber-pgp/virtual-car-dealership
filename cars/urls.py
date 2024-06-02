@@ -19,4 +19,6 @@ urlpatterns = [
     path('add_car/', views.add_car, name='add_car'),  # Add car route
     path('edit_car/<int:car_id>/', views.edit_car, name='edit_car'),  # Edit car route
     path('delete_car/<int:car_id>/', views.delete_car, name='delete_car'),  # Delete car route
+    path('dealership_dashboard/', views.dealershipdashboard, name='dealership_dashboard'),  # Add this line
+
 ]
