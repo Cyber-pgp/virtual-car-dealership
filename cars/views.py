@@ -152,35 +152,37 @@ def logout(request):
 
 def register(request):
     if request.method == 'POST':
-        firstname = request.POST['firstname']
-        lastname = request.POST['lastname']
-        username = request.POST['username']
-        email = request.POST['email']
-        password = request.POST['password']
-        confirm_password = request.POST['confirm_password']
-        user_type =  'dealer' # Added to capture user type
+        firstname = request.POST.get('firstname')
+        lastname = request.POST.get('lastname')
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        confirm_password = request.POST.get('confirm_password')
+        user_type = 'dealer'  # Set user_type to 'dealer'
 
         if password == confirm_password:
             if User.objects.filter(username=username).exists():
                 messages.error(request, 'Username already exists!')
                 return redirect('cars:register')
+            elif User.objects.filter(email=email).exists():
+                messages.error(request, 'Email already exists!')
+                return redirect('cars:register')
             else:
-                if User.objects.filter(email=email).exists():
-                    messages.error(request, 'Email already exists!')
-                    return redirect('cars:register')
-                else:
-                    user = User.objects.create_user(first_name=firstname, last_name=lastname, email=email, username=username, password=password)
-                    Profile.objects.create(user=user, user_type=user_type)  # Create Profile with user_type
-                    auth.login(request, user)
-                    user.save()
-                    messages.success(request, 'You are registered successfully.')
-                    return redirect('cars:login')
+                user = User.objects.create_user(first_name=firstname, last_name=lastname, email=email, username=username, password=password)
+                user.save()
+
+                # Create Profile only if it does not exist
+                if not hasattr(user, 'profile'):
+                    Profile.objects.create(user=user, user_type=user_type)
+                
+                auth.login(request, user)
+                messages.success(request, 'You are registered successfully.')
+                return redirect('cars:login')
         else:
             messages.error(request, 'Password does not match')
             return redirect('cars:register')
     else:
         return render(request, 'cars/register.html')
-
 @login_required
 def dashboard(request):
     profile = Profile.objects.get(user=request.user)
