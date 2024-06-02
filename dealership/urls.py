@@ -1,9 +1,9 @@
 from django.contrib import admin
 from django.urls import path, include
-from cars import views as car_views
+from django.conf.urls.static import static
+from dealership import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', car_views.home, name='home'),
-    path('', include('cars.urls', namespace='cars')),
-]
+    path('', include('cars.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

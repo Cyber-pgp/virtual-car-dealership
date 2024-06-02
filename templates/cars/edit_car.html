@@ -1,0 +1,24 @@
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="make">Make:</label>
+    <input type="text" id="make" name="make" value="{{ car.make }}"><br>
+    <label for="model">Model:</label>
+    <input type="text" id="model" name="model" value="{{ car.model }}"><br>
+    <label for="year">Year:</label>
+    <input type="text" id="year" name="year" value="{{ car.year }}"><br>
+    <label for="fuel">Fuel:</label>
+    <input type="text" id="fuel" name="fuel" value="{{ car.fuel }}"><br>
+    <label for="mileage">Mileage:</label>
+    <input type="text" id="mileage" name="mileage" value="{{ car.mileage }}"><br>
+    <label for="engine">Engine:</label>
+    <input type="text" id="engine" name="engine" value="{{ car.engine }}"><br>
+    <label for="color">Color:</label>
+    <input type="text" id="color" name="color" value="{{ car.color }}"><br>
+    <label for="price">Price:</label>
+    <input type="text" id="price" name="price" value="{{ car.price }}"><br>
+    <label for="description">Description:</label>
+    <textarea id="description" name="description">{{ car.description }}</textarea><br>
+    <label for="image">Image:</label>
+    <input type="file" id="image" name="image"><br>
+    <button type="submit">Update Car</button>
+</form>

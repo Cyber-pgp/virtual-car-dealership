@@ -28,6 +28,12 @@ SECRET_KEY = config('SECRET_KEY')
 #DEBUG = config('DEBUG', default=False, cast=bool)
 DEBUG = True
 ALLOWED_HOSTS = []
+
+# Authentication settings
+LOGIN_URL = 'login'  # This sets the URL for login redirection
+LOGIN_REDIRECT_URL = 'cars:dashboard'  # Optional, redirect after login
+LOGOUT_REDIRECT_URL = 'login'  # Optional, redirect after logout
+
 # Application definition
 
 INSTALLED_APPS = [
