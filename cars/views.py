@@ -158,7 +158,7 @@ def register(request):
         email = request.POST['email']
         password = request.POST['password']
         confirm_password = request.POST['confirm_password']
-        user_type =   # Added to capture user type
+        user_type =  'dealer' # Added to capture user type
 
         if password == confirm_password:
             if User.objects.filter(username=username).exists():
