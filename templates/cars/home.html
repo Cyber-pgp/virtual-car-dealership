@@ -1,0 +1,23 @@
+{% extends 'cars/base.html' %}
+{% load static %}
+
+{% block body %}
+<section class="block block--dark block--skewed-left">
+    <div class="grid grid--1x2">
+        <div class="hero__content">
+            <h1>Find your Dream Car</h1>
+            <p class="hero__tagline">Among a great selection of used cars</p>
+            <a href="{% url 'cars:listings' %}" class="btn btn--primary btn--block">View cars</a>
+        </div>
+        <div>
+            <img class="hero__image" src="{% static 'images/banner.png' %}" alt="">
+        </div>
+    </div>
+</section>
+<section class="searchbar">
+    <form class="search" action="{% url 'cars:search' %}" method="get">
+        <input type="text" class="form-control" name="q" placeholder="Search for a car brand or model" value="">
+        <button type="submit" aria-label="Search"><i class="btn btn-primary"></i></button>
+    </form>
+</section>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'cars/base.html' %}
+{% load static %}
+
+{% block body %}
+<section class="page_title">
+    <h2>Available cars</h2>
+</section>
+<main>
+    <div class="container">
+        {% for car in car_list %}
+        <div class="card">
+            {% if car.image %}
+            <img src="{{ car.image.url }}" alt="" class="img-thumbnail" height="150px" width="150px">
+            {% else %}
+            <img src="{% static 'images/default_car.jpg' %}" alt="" class="img-thumbnail" height="150px" width="150px">
+            {% endif %}
+            <div class="card-body">
+                <div class="card-text">
+                    <h3>{{ car.make }} - {{ car.model }}</h3>
+                    <table>
+                        <tr>
+                            <td>Model Year:</td>
+                            <td>{{ car.year }}</td>
+                        </tr>
+                        <tr>
+                            <td>Mileage:</td>
+                            <td>{{ car.mileage }}</td>
+                        </tr>
+                        <tr class="price">
+                            <td>Price: </td>
+                            <td>{{ car.price }} Kr</td>
+                        </tr>
+                    </table>
+                    <a href="{% url 'cars:car_details' car.id %}" class="btn btn-secondary">More info</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}

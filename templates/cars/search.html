@@ -1,0 +1,49 @@
+{% extends 'cars/base.html' %}
+{% load static %}
+
+{% block body %}
+<section class="searchbar">
+    <form class="search" action="{% url 'cars:search' %}" method="get">
+        <input type="text" class="form-control" name="q" placeholder="Search for a car brand or model" value="{{ query }}">
+        <button type="submit" aria-label="Search"><i class="btn btn-primary"></i></button>
+    </form>
+</section>
+<div class="container mt-4">
+    <h3>Results: {{ query }}</h3>
+    {% if cars %}
+    <div class="row">
+        {% for car in cars %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                {% if car.image %}
+                <img src="{{ car.image.url }}" alt="" class="img-thumbnail" height="150px" width="150px">
+                {% else %}
+                <img src="{% static 'images/default_car.jpg' %}" alt="" class="img-thumbnail" height="150px" width="150px">
+                {% endif %}
+                <div class="card-body">
+                    <h3>{{ car.make }} {{ car.model }}</h3>
+                    <table>
+                        <tr>
+                            <td>Model Year:</td>
+                            <td>{{ car.year }}</td>
+                        </tr>
+                        <tr>
+                            <td>Mileage:</td>
+                            <td>{{ car.mileage }}</td>
+                        </tr>
+                        <tr class="price">
+                            <td>Price: </td>
+                            <td>{{ car.price }} Kr</td>
+                        </tr>
+                    </table>
+                    <p><a href="{% url 'cars:car_details' car.id %}" class="btn btn-secondary" role="button">More info</a></p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>No cars found matching your query.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'cars/base.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/register.css' %}">
+
+{% block body %}
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+</ul>
+{% endif %}
+<div class="container-register">
+    <h3 style="color: tomato;">Create your dealership account</h3>
+    <form action="{% url 'cars:register' %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-group mb-0 clearfix">
+            <button type="submit" class="btn-md btn-success float-left">Register</button>
+        </div>
+        <div class="extra-login clearfix">
+            <span>
+                <p>Already a member? <a href="{% url 'cars:login' %}" class="thembo"> Login here</a></p>
+            </span>
+        </div>
+        <div class="clearfix"></div>
+    </form>
+</div>
+{% endblock %}
